@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'groovy'
+}
+
+group = 'com.barrad.cinema.booking'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.flywaydb:flyway-core'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'io.springfox:springfox-swagger-ui:2.10.5'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    testImplementation platform("org.spockframework:spock-bom:2.0-M1-groovy-2.5")
+    testImplementation 'org.codehaus.groovy:groovy-all:2.5.8'
+    testImplementation 'org.spockframework:spock-core:2.0-M1-groovy-2.5'
+    testImplementation 'org.spockframework:spock-spring:2.0-M1-groovy-2.5'
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4")
+}
+
+test {
+    useJUnitPlatform()
+}
