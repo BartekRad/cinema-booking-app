@@ -32,6 +32,6 @@ public class Seat {
     }
 
     public String encodeToString() {
-        return rowId + ":" + seatNumber;
+        return rowId.getId() + ":" + seatNumber;
     }
 }

@@ -17,13 +17,13 @@ public class BookingDTOConverter {
         return BookingDTO.builder()
                 .bookingId(booking.getBookingId())
                 .clientEmail(booking.getClientEmail())
-                .bookedSeats(convert(booking.getBookedSeats().getSeats()))
+                .bookedSeats(convertSeats(booking.getBookedSeats().getSeats()))
                 .showDTO(showDTOConverter.convert(booking.getShow()))
                 .isActive(booking.isActive())
                 .build();
     }
 
-    private Set<SeatDTO> convertSeats(Set<Seat> seats) {
+    public Set<SeatDTO> convertSeats(Set<Seat> seats) {
         return seats.stream()
                 .map(this::convert)
                 .collect(Collectors.toSet());
@@ -44,14 +44,18 @@ public class BookingDTOConverter {
     }
 
     public Set<Seat> convertSeatsDTO(Set<SeatDTO> seats) {
+        return seats.stream()
+                .map(this::convert)
+                .collect(Collectors.toSet());
 
     }
 
     public BookingCreateRequest convert(CreateBookingDTO createBookingDTO) {
         return BookingCreateRequest.builder()
                 .clientEmail(createBookingDTO.getClientEmail())
-                .bookedSeats(new BookedSeats(convert(createBookingDTO.getBookedSeats())))
+                .bookedSeats(new BookedSeats(convertSeatsDTO(createBookingDTO.getBookedSeats())))
+                .showId(createBookingDTO.getShowId())
+                .build();
     }
-
 
 }

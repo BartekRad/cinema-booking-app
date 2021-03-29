@@ -35,7 +35,7 @@ public class ShowService {
 
     public List<Show> getShowsByHallId(Long id){
         HallEntity hallEntity = getHallEntity(id);
-        return showRepository.findShowsByHallEntity(hallEntity)
+        return showRepository.findShowsByHall(hallEntity)
                 .stream()
                 .map(showConverter::convert)
                 .collect(Collectors.toList());
@@ -60,7 +60,4 @@ public class ShowService {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("HAHA"));
     }
-
-
-
 }

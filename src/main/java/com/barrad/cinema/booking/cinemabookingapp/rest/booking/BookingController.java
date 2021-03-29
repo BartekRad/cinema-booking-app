@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -29,16 +30,14 @@ public class BookingController {
     }
 
     @GetMapping("/seats")
-    public Set<SeatDTO> getAvailableSeatsByShowId(@RequestParam("showId") @NotBlank Long showId){
+    public Set<SeatDTO> getAvailableSeatsByShowId(@RequestParam("showId") @NotNull Long showId){
         return bookingRestService.getAvailableSeatsByShowId(showId);
     }
 
     @DeleteMapping("{id}")
-    public void cancelBooking(@PathVariable(value = "id") @NotBlank Long bookingId){
+    public void cancelBooking(@PathVariable(value = "id") @NotNull Long bookingId){
         bookingRestService.deleteBooking(bookingId);
     }
-
-
 
 
 }

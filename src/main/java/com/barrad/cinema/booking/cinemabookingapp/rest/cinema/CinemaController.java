@@ -1,5 +1,7 @@
 package com.barrad.cinema.booking.cinemabookingapp.rest.cinema;
 
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingBadRequestException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,8 @@ public class CinemaController {
 
     @GetMapping
     public List<CinemaDTO> getCinemas() {
-        return cinemaRestService.getCinemas();
+
+      return cinemaRestService.getCinemas();
     }
 
     @DeleteMapping("{id}")

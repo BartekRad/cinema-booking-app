@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class MovieSpecification {
+public class MovieSearchCriteria {
      private final String movieNameLike;
-     private final String cinemaName;
-     private final String ageLimit;
+     private final String cinemaNameLike;
+     private final String ageLimitLessThan;
      private final Integer productionYear;
-     private final String productionCountry;
-     private final String productionDirector;
+     private final String productionCountryLike;
+     private final String productionDirectorLike;
      private final int pageNo;
      private final int pageSize;
-
+private final String sortBy;
+private final SortOrder sortOrder;
 }

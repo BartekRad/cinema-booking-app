@@ -1,9 +1,6 @@
 package com.barrad.cinema.booking.cinemabookingapp.persistance.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -38,6 +35,7 @@ public class HallEntity {
     @NotNull
     private Boolean isAvailable;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "cinema_id", nullable = false)
     private CinemaEntity cinema;

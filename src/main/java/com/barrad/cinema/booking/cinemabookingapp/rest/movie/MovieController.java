@@ -21,18 +21,23 @@ public class MovieController {
                                      @RequestParam(value = "productionDirector", required = false) String productionDirector,
                                      @RequestParam(value = "movieNameLike", required = false) String movieNameLike,
                                      @RequestParam(value = "pageNo", defaultValue = "0") int pageNo,
-                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize){
-        MovieSpecification movieSpecification = MovieSpecification.builder()
-                .ageLimit(ageLimit)
-                .cinemaName(cinemaName)
+                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                     @RequestParam(value = "sortOrder", defaultValue = "ASC") SortOrder sortOrder,
+                                     @RequestParam(value = "sortBy", defaultValue = "title") String sortBy)
+    {
+        MovieSearchCriteria movieSearchCriteria = MovieSearchCriteria.builder()
+                .ageLimitLessThan(ageLimit)
+                .cinemaNameLike(cinemaName)
                 .pageNo(pageNo)
                 .pageSize(pageSize)
-                .productionCountry(productionCountry)
+                .productionCountryLike(productionCountry)
                 .productionYear(productionYear)
-                .productionDirector(productionDirector)
+                .productionDirectorLike(productionDirector)
                 .movieNameLike(movieNameLike)
+                .sortOrder(sortOrder)
+                .sortBy(sortBy)
                 .build();
-        return movieRestService.getMovies(movieSpecification);
+        return movieRestService.getMovies(movieSearchCriteria);
     }
 
 

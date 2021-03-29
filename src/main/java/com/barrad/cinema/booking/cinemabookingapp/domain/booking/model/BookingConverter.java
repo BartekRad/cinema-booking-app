@@ -13,6 +13,7 @@ public class BookingConverter {
                 .bookedSeats(BookedSeats.parseSeats(bookingEntity.getSeats()))
                 .show(showConverter.convert(bookingEntity.getShow()))
                 .isActive(bookingEntity.getIsActive())
+                .bookingId(bookingEntity.getId())
                 .build();
     }
 
@@ -22,6 +23,5 @@ public class BookingConverter {
                 .seats(bookingCreateRequest.getBookedSeats().encodeToString())
                 .isActive(bookingCreateRequest.isActive())
                 .build();
-
     }
 }

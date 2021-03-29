@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +25,12 @@ public class MovieRestService {
                 movieService.addMovie(movieCreateRequest);
     }
 
-    public List<MovieDTO> getMovies(MovieSpecification movieSpecification) {
+    public List<MovieDTO> getMovies(MovieSearchCriteria movieSearchCriteria) {
 
-        return null;
+
+        return movieService.getMovies(movieSearchCriteria)
+                .stream()
+                .map(movie -> movieDTOConverter.convert(movie))
+                .collect(Collectors.toList());
     }
 }

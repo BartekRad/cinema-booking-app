@@ -16,7 +16,7 @@ public class BookingRestService {
     private final BookingDTOConverter bookingDTOConverter = new BookingDTOConverter();
 
     public void createBooking(CreateBookingDTO createBookingDTO) {
-        bookingService.createBooking();
+        bookingService.createBooking(bookingDTOConverter.convert(createBookingDTO));
 
     }
 
@@ -28,12 +28,11 @@ public class BookingRestService {
     }
 
     public Set<SeatDTO> getAvailableSeatsByShowId(Long showId) {
-        return null;
+        return bookingDTOConverter.convertSeats(bookingService.getAvailableSeatsByShowId(showId));
     }
 
     public void deleteBooking(Long bookingId) {
         bookingService.deleteBooking(bookingId);
-
 
     }
 }

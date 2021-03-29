@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Validated
@@ -15,7 +16,7 @@ public class ShowController {
     private final ShowRestService showRestService;
 
     @GetMapping
-    public List<ShowDTO> getShowsByHallId (@RequestParam("hallId") @NotBlank Long hallId) {
+    public List<ShowDTO> getShowsByHallId (@RequestParam("hallId") @NotNull Long hallId) {
         return showRestService.getShowsByHallId(hallId);
     }
 

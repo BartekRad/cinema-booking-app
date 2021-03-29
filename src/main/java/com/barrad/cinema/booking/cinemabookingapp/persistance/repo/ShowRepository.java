@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ShowRepository extends JpaRepository<ShowEntity, Long> {
-   List<ShowEntity> findShowsByHallEntity(HallEntity hallEntity);
+   List<ShowEntity> findShowsByHall(HallEntity hallEntity);
 }

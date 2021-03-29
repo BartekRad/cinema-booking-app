@@ -14,7 +14,7 @@ import java.time.Duration;
 
 @Data
 @Entity
-@Table(name="movie")
+@Table(name = "movie")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
