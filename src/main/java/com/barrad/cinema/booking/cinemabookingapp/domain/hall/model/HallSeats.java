@@ -1,6 +1,8 @@
 package com.barrad.cinema.booking.cinemabookingapp.domain.hall.model;
 
 import com.barrad.cinema.booking.cinemabookingapp.domain.booking.model.Seat;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.ExceptionCode;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,7 +31,7 @@ public class HallSeats {
         for (String row : splitted) {
             Matcher matcher = ROW_REGEX.matcher(row);
             if (!matcher.matches()) {
-                throw new IllegalStateException("HAHA");
+                throw new CinemaBookingException("Wrong seats format", ExceptionCode.WRONG_SEATS_FORMAT);
             }
             RowId id = RowId.valueOf(matcher.group(1));
             Integer seatsNumber = Integer.parseInt(matcher.group(2));

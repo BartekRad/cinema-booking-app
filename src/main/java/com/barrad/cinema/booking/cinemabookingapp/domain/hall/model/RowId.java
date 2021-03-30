@@ -1,5 +1,7 @@
 package com.barrad.cinema.booking.cinemabookingapp.domain.hall.model;
 
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingBadRequestException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.ExceptionCode;
 import lombok.Getter;
 
 import java.util.regex.Matcher;
@@ -22,7 +24,7 @@ public class RowId {
     private static void validate(String id) {
         Matcher matcher = RAW_ID_REGEX.matcher(id);
         if(!matcher.matches()){
-            throw new IllegalStateException("HAHA");
+            throw new CinemaBookingBadRequestException("RowId wrong format", ExceptionCode.WRONG_ROWID_FORMAT);
         }
     }
 }

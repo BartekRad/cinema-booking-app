@@ -6,6 +6,10 @@ import com.barrad.cinema.booking.cinemabookingapp.persistance.model.ShowEntity;
 import com.barrad.cinema.booking.cinemabookingapp.persistance.repo.HallRepository;
 import com.barrad.cinema.booking.cinemabookingapp.persistance.repo.MovieRepository;
 import com.barrad.cinema.booking.cinemabookingapp.persistance.repo.ShowRepository;
+import com.barrad.cinema.booking.cinemabookingapp.rest.show.ShowTime;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingBadRequestException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingNotFoundException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -42,22 +46,39 @@ public class ShowService {
     }
 
     private HallEntity getHallEntity(Long hallId){
-        HallEntity hallEntity = hallRepository.findById(hallId)
-                .orElseThrow(() -> new IllegalArgumentException("HAHA"));
-                return hallEntity;
+        return hallRepository.findById(hallId)
+                .orElseThrow(() -> new CinemaBookingNotFoundException(
+                        String.format("Hall entity with id: %d", hallId ),
+                        ExceptionCode.HALL_NOT_FOUND));
     }
 
 
 
     private ShowEntity createShowEntity(ShowCreateRequest showCreateRequest) {
+        HallEntity hallEntity = getHallEntity(showCreateRequest.getHallId());
+        validateHallIsAvailable(hallEntity, showCreateRequest.getShowTime());
         ShowEntity showEntity = showConverter.convert(showCreateRequest);
-        showEntity.setHall(getHallEntity(showCreateRequest.getHallId()));
+        showEntity.setHall(hallEntity);
         return showEntity;
     }
 
 
     private MovieEntity getMovieById(Long id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("HAHA"));
+                .orElseThrow(() -> new CinemaBookingNotFoundException(
+                        String.format("Movie with id = %d not found", id),
+                        ExceptionCode.MOVIE_NOT_FOUND));
+    }
+
+    private void validateHallIsAvailable(HallEntity hallEntity, ShowTime showTime){
+        List<ShowEntity> overlappingShows = showRepository.findOverlappingShows(
+                showTime.getStartDate(),
+                showTime.getEndDate(),
+                hallEntity.getId());
+        if (!overlappingShows.isEmpty() || !hallEntity.getIsAvailable()){
+            throw new CinemaBookingBadRequestException(
+                    String.format("Hall hallid = %d is not available for this range", hallEntity.getId()),
+                    ExceptionCode.HALL_UNAVAILABLE);
+        }
     }
 }

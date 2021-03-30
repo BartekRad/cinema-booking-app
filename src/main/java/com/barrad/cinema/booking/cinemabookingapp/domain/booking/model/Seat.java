@@ -1,6 +1,9 @@
 package com.barrad.cinema.booking.cinemabookingapp.domain.booking.model;
 
 import com.barrad.cinema.booking.cinemabookingapp.domain.hall.model.RowId;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingBadRequestException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.ExceptionCode;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -24,7 +27,7 @@ public class Seat {
 
         Matcher matcher = SEAT_REGEX.matcher(seat);
         if (!matcher.matches()) {
-            throw new IllegalStateException("HAHA");
+            throw new CinemaBookingException("Wrong seat format", ExceptionCode.WRONG_SEATS_FORMAT);
         }
         String id = matcher.group(1);
         int seatsNumber = Integer.parseInt(matcher.group(2));

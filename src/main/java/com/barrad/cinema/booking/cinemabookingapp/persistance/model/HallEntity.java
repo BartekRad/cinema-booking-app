@@ -24,7 +24,7 @@ public class HallEntity {
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {@Parameter(name = "sequence_name", value = "HALL_ID_SEQ")}
     )
-    private Long Id;
+    private Long id;
 
     @NotBlank
     private String seats;

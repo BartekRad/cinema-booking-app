@@ -5,6 +5,8 @@ import com.barrad.cinema.booking.cinemabookingapp.persistance.model.BookingEntit
 import com.barrad.cinema.booking.cinemabookingapp.persistance.model.ShowEntity;
 import com.barrad.cinema.booking.cinemabookingapp.persistance.repo.BookingRepository;
 import com.barrad.cinema.booking.cinemabookingapp.persistance.repo.ShowRepository;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.CinemaBookingNotFoundException;
+import com.barrad.cinema.booking.cinemabookingapp.utils.exceptions.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,7 @@ public class BookingService {
 
     private ShowEntity getShowEntity(Long id) {
         return showRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("HAHA"));
+                .orElseThrow(() -> new CinemaBookingNotFoundException(String.format("Show with id = %d not found", id), ExceptionCode.SHOW_NOT_FOUND));
     }
 
 
